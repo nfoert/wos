@@ -156,11 +156,12 @@
     >
         <div class="mx-auto max-w-3xl text-center">
             <div
-                class="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm text-violet-300"
-            >
-                <span class="h-2 w-2 rounded-full bg-violet-400"></span>
-				SET UP YOUR WEEK
-            </div>
+    class="theme-panel mb-7 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
+>
+    <span class="theme-dot h-2 w-2 rounded-full"></span>
+    SET UP YOUR WEEK
+</div>
+
 
             <h1
                 class="text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl"
@@ -186,7 +187,8 @@
         class="relative z-10 mx-auto w-full max-w-4xl px-6 pt-10 lg:px-10"
     >
         <div
-            class="flex w-full flex-col gap-4 rounded-3xl border border-violet-400/20 bg-violet-400/10 px-4 py-4 text-sm text-violet-300"
+            class="theme-panel flex w-full flex-col gap-4 rounded-3xl border px-4 py-4 text-sm”
+
         >
             {#if data.calendarStatus.isConnected}
                 <p>Calendar connected!</p>
@@ -198,7 +200,7 @@
 
             <select
                 bind:value={selectedCalendar}
-                class="mt-2 w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-400/50"
+                class="theme-focus mt-2 w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-zinc-300 outline-none" 
             >
                 <option value="">Select a calendar</option>
 
@@ -261,7 +263,8 @@
     >
         <button
             type="button"
-            class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100"
+            class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100"class="theme-shadow theme-light-hover group rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:-translate-y-0.5”
+
         >
             Continue
 

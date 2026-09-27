@@ -98,11 +98,12 @@
     >
         <div class="max-w-3xl">
             <div
-                class="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm text-violet-300"
-            >
-                <span class="h-2 w-2 rounded-full bg-violet-400"></span>
-                Settings
-            </div>
+    class="theme-panel mb-7 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
+>
+    <span class="theme-dot h-2 w-2 rounded-full"></span>
+    Settings
+</div>
+
 
             <h1
                 class="text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl"
@@ -130,7 +131,8 @@
         >
             <div class="mb-8">
                 <p
-                    class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400"
+                    class="theme-accent text-xs font-semibold uppercase tracking-[0.2em]”
+
                 >
                     Appearance
                 </p>
@@ -181,7 +183,8 @@
         >
             <div class="mb-6">
                 <p
-                    class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400"
+                    class="theme-accent text-xs font-semibold uppercase tracking-[0.2em]”
+
                 >
                     Account
                 </p>
@@ -252,7 +255,8 @@
         >
             <div class="mb-8">
                 <p
-                    class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400"
+                    class="theme-accent text-xs font-semibold uppercase tracking-[0.2em]”
+
                 >
                     Scheduling
                 </p>
@@ -346,7 +350,8 @@
         >
             <div class="mb-8">
                 <p
-                    class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400"
+                    class="theme-accent text-xs font-semibold uppercase tracking-[0.2em]”
+
                 >
                     Optimization
                 </p>
