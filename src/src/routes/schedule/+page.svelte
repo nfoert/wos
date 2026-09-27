@@ -34,13 +34,12 @@
 </script>
 
 <div class="min-h-screen overflow-hidden bg-[#08090d] text-white">
-    <!-- Background glow -->
+        <!-- Background glow -->
     <div
-        class="pointer-events-none absolute left-1/2 top-0 h-162.5 w-250 -translate-x-1/2 rounded-full bg-violet-600/15 blur-[150px]"
+        class="theme-glow pointer-events-none absolute left-1/2 top-0 h-162.5 w-250 -translate-x-1/2 rounded-full blur-[150px]"
     ></div>
-
     <div
-        class="pointer-events-none absolute -right-75 top-125 h-125 w-125 rounded-full bg-indigo-600/10 blur-[140px]"
+        class="theme-glow-soft pointer-events-none absolute right-0 top-125 h-125 w-125 translate-x-1/2 rounded-full blur-[140px]"
     ></div>
 
     <!-- Navbar -->
@@ -69,7 +68,7 @@
 
             <button
                 type="button"
-                class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100 mt-4 ml-4"
+                class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100 mt-4 ml-4 disabled:bg-slate-800/20 disabled:text-slate-400"
                 onclick={generate}
                 disabled={generating}
             >   
