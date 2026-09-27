@@ -75,7 +75,7 @@
 			<p
 				class="mt-4 text-sm font-semibold tracking-[0.3em] text-white"
 			>
-				WEEK OPTIMIZATION SYSTEM ACTIVATED
+				67 WEEK OPTIMIZATION SYSTEM 67
 			</p>
 		</div>
 	</div>
