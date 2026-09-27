@@ -190,13 +190,16 @@
 		</div>
 	</section>
 
-	<!-- Progress -->
-	<section class="relative z-10 mx-auto max-w-5xl px-6 pt-2 lg:px-10">
-		<ProgressCard
-			{totalItems}
-			{progress}
-		/>
-	</section>
+	<!-- Floating Progress -->
+<section
+    class="fixed bottom-4 left-1/2 z-50 w-full max-w-5xl -translate-x-1/2 px-6 lg:px-10"
+>
+    <ProgressCard
+        {totalItems}
+        {progress}
+    />
+</section>
+
 
     <!-- Commitments + Goals -->
     <section
