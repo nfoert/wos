@@ -7,13 +7,13 @@ export async function GET({ cookies, params }) {
 
     // If no cookie exists, return empty events so frontend shows "Connect" button
     if (!tokenCookie) {
-        return { events: null };
+        return json({ events: [] });
     }
 
     const oauth2Client = new google.auth.OAuth2(
         env.OAUTH_CLIENT_ID,
         env.OAUTH_CLIENT_SECRET,
-        'http://localhost:5173/api/auth/callback'
+        'http://localhost:5173/api/calendar/callback'
     );
 
     try {
@@ -67,8 +67,6 @@ export async function GET({ cookies, params }) {
         });
     } catch (err) {
         console.error('Failed to load calendar events:', err);
-        // If the token is corrupted or revoked, clear the invalid cookie
-        cookies.delete('google_tokens', { path: '/' });
         throw error(500);
     }
 }
