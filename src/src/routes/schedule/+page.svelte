@@ -1,3 +1,4 @@
+import { goToLogout } from '$lib/utils/calendar';
 <script lang="ts">
     import CalendarPreview from "$lib/index/CalendarPreview.svelte";
     import Navbar from "$lib/index/Navbar.svelte";
@@ -88,10 +89,10 @@
 
     <!-- Navbar -->
     <Navbar
-        links={navLinks}
-        actionLabel="Sign out"
-        // onAction={goToLogin}
-    />
+    links={navLinks}
+    actionLabel="Sign out"
+    onAction={goToLogout}
+/>
 
     <div class="flex flex-col gap-4 items-center mb-24">
         <div
