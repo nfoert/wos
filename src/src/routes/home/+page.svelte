@@ -187,8 +187,7 @@
         class="relative z-10 mx-auto w-full max-w-4xl px-6 pt-10 lg:px-10"
     >
         <div
-            class="theme-panel flex w-full flex-col gap-4 rounded-3xl border px-4 py-4 text-sm”
-
+            class="theme-panel flex w-full flex-col gap-4 rounded-3xl border px-4 py-4 text-sm"
         >
             {#if data.calendarStatus.isConnected}
                 <p>Calendar connected!</p>
