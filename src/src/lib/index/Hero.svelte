@@ -39,7 +39,7 @@
 			>
 				See how it works
 			</a>
-			{#if !calendarData}
+			{#if !calendarData.events}
 				<button class="rounded-full border border-white/10 bg-white/5 px-7 py-3.5 font-medium transition hover:bg-white/10" onclick={goToLogin}>Connect Calendar</button>
 			{:else}
 				<p>Connected to calendar!</p>
