@@ -282,16 +282,17 @@
         class="relative z-10 mx-auto flex w-full max-w-4xl justify-end px-6 py-8 lg:px-10"
     >
         <button
-            type="button"
-            class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100"
-			onclick={goToSchedule}
-        >
-            Continue
+	type="button"
+	class="theme-button-glow group rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:-translate-y-0.5"
+	onclick={goToSchedule}
+>
+	Continue
 
-            <span class="ml-2 transition group-hover:ml-3">
-                →
-            </span>
-        </button>
+	<span class="ml-2 transition group-hover:ml-3">
+		→
+	</span>
+</button>
+
     </section>
 
     <!-- Footer -->
