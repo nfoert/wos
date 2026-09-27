@@ -107,6 +107,11 @@
 .theme-button-glow:hover {
 	background-color: white;
 	box-shadow:
-		0 0 20px rgb(var(--theme-rgb) / 0.55),
-		0 0 45px rgb(var(--theme-rgb) / 0.30);
+		0 0 28px rgb(var(--theme-rgb) / 0.75),
+		0 0 65px rgb(var(--theme-rgb) / 0.55),
+		0 0 110px rgb(var(--theme-rgb) / 0.35);
+}
+
+html {
+	scroll-behavior: smooth;
 }

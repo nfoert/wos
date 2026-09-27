@@ -1,37 +1,26 @@
 <script lang="ts">
-    import { goToLogin } from "$lib/utils/calendar";
-    import ConnectCalendar from "$lib/ConnectCalendar.svelte";
-    import { onMount } from "svelte";
-
+	import { goToLogin } from '$lib/utils/calendar';
 	import Navbar from '$lib/index/Navbar.svelte';
 	import Hero from '$lib/index/Hero.svelte';
 	import CalendarPreview from '$lib/index/CalendarPreview.svelte';
 	import Features from '$lib/index/features.svelte';
 	import HowItWorks from '$lib/index/HowItWorks.svelte';
-    import { goto } from "$app/navigation";
+	import { goto } from '$app/navigation';
 
-    let { data } = $props();
+	let { data } = $props();
 
-    const navLinks = [
-		{ label: 'Features', href: '#features' },
-		{ label: 'How it works', href: '#how' }
-	];
-
-	function handleConnectCalendar() {
+	function handleContinue() {
 		if (data.calendarStatus.isConnected) {
-			goto("/home");
+			goto('/home');
 		} else {
 			goToLogin();
 		}
 	}
-
-    onMount(() => {
-        console.log(data);
-    })
 </script>
 
 <svelte:head>
 	<title>W.O.S. | Week Optimization System</title>
+
 	<meta
 		name="description"
 		content="W.O.S. helps you organize your commitments, priorities, and free time."
@@ -44,12 +33,15 @@
 	></div>
 
 	<Navbar
-    links={navLinks}
-    actionLabel={data.calendarStatus.isConnected ? "Continue" : "Sign in"}
-    onAction={handleConnectCalendar}
+		links={[]}
+		actionLabel=""
 	/>
-	<Hero calendarData={data} />
+
+	<Hero onContinue={handleContinue} />
+
 	<CalendarPreview />
+
 	<Features />
+
 	<HowItWorks />
 </div>
