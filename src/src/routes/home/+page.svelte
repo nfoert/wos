@@ -5,6 +5,9 @@
 	import GoalCard from '$lib/index/GoalCard.svelte';
 	import AvailabilityCard from '$lib/index/AvailabilityCard.svelte';
 	import { goToLogin } from "$lib/utils/calendar";
+    import { onMount } from 'svelte';
+
+	let { data } = $props();
 
 	type Commitment = {
 		name: string;
@@ -44,6 +47,35 @@
 	function removeGoal(index: number) {
 		goals = goals.filter((_, i) => i !== index);
 	}
+
+	async function getCalendars() {
+		const res = await fetch('/api/calendar/list');
+
+		return res.json();
+	}
+
+	async function getCalendarEvents(id) {
+		const res = await fetch('/api/calendar/events/' + id);
+
+		return res.json();
+	}
+
+	let calendars = $state([]);
+	let selectedCalendar = $state()
+	let events = $state([]);
+	$inspect(calendars, selectedCalendar, events);
+
+	onMount(async () => {
+		calendars = await getCalendars(selectedCalendar);
+		selectedCalendar = calendars.calendars[0].id
+		events = await getCalendarEvents(selectedCalendar);
+	});
+
+	$effect(async () => {
+		if (selectedCalendar) {
+			events = await getCalendarEvents(selectedCalendar);
+		}
+	})
 </script>
 
 <svelte:head>
@@ -100,8 +132,32 @@
 		</div>
 	</section>
 
-	<!-- Progress -->
+	<!-- Calendar selector -->
 	<section class="relative z-10 mx-auto max-w-5xl px-6 pt-10 lg:px-10">
+		<div class="flex flex-col gap-4 m-4 py-4 rounded-3xl border border-violet-400/20 bg-violet-400/10 px-4 text-sm text-violet-300">
+			{#if data.calendarStatus.isConnected}
+				<p>Calendar connected!</p>
+			{:else}
+				<p>Calendar not connected.</p>
+			{/if}
+
+			<p class="font-bold">Select a calendar</p>
+
+			<select bind:value={selectedCalendar} class="mt-2 w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-400/50 w-1/2">
+				<option value="">Select a calendar</option>
+				{#each calendars.calendars as calendar}
+					<option value={calendar.id}>{calendar.summary}</option>
+				{/each}
+			</select>
+
+			{#if selectedCalendar && events.events}
+				<p>Loaded {events.events.length} events</p>
+			{/if}
+		</div>
+	</section>
+
+	<!-- Progress -->
+	<section class="relative z-10 mx-auto max-w-5xl px-6 pt-2 lg:px-10">
 		<ProgressCard
 			{totalItems}
 			{progress}
