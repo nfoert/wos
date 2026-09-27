@@ -1,11 +1,13 @@
 <script lang="ts">
 	let {
 		title,
-		time,
+		startTime,
+		endTime,
 		color = 'violet'
 	}: {
 		title: string;
-		time: string;
+		startTime: string;
+		endTime: string;
 		color?: 'violet' | 'blue' | 'emerald' | 'amber' | 'pink';
 	} = $props();
 
@@ -20,5 +22,5 @@
 
 <div class={`rounded-xl p-3 text-xs ${colors[color]}`}>
 	<div class="font-semibold">{title}</div>
-	<div class="mt-1 opacity-60">{time}</div>
+	<div class="mt-1 opacity-60">{startTime} - {endTime}</div>
 </div>
