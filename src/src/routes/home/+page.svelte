@@ -95,8 +95,7 @@
 			</h1>
 
 			<p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-400">
-				Tell W.O.S. what your life looks like. We'll figure out where
-				everything fits.
+				Add all events not currently on your calendar, set your goals for the week, and let W.O.S. optimize your schedule.
 			</p>
 		</div>
 	</section>

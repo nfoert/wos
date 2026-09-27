@@ -32,55 +32,64 @@
 						{#if i === 0}
 							<CalendarEvent
 								title="Calculus"
-								time="9:00 AM"
+								startTime="9:00 AM"
+								endTime="10:00 AM"
 								color="violet"
 							/>
 
 							<CalendarEvent
 								title="Study"
-								time="2:00 PM"
+								startTime="2:00 PM"
+								endTime="5:00 PM"
 								color="blue"
 							/>
 						{:else if i === 1}
 							<CalendarEvent
 								title="Gym"
-								time="5:00 PM"
+								startTime="5:00 PM"
+								endTime="6:00 PM"
 								color="emerald"
 							/>
 						{:else if i === 2}
 							<CalendarEvent
 								title="Physics"
-								time="10:00 AM"
+								startTime="10:00 AM"
+								endTime="11:00 AM"
 								color="violet"
 							/>
 
 							<CalendarEvent
 								title="Project"
-								time="3:00 PM"
+								startTime="3:00 PM"
+								endTime="4:00 PM"
 								color="amber"
 							/>
 						{:else if i === 3}
 							<CalendarEvent
 								title="Work"
-								time="4:00 PM"
+								startTime="4:00 PM"
+								endTime="6:00 PM"
 								color="pink"
 							/>
 						{:else if i === 4}
 							<CalendarEvent
 								title="Gym"
-								time="3:30 PM"
+								startTime="3:30 PM"
+								endTime="4:30 PM"
 								color="emerald"
 							/>
 						{:else if i === 5}
 							<CalendarEvent
 								title="Free Time"
-								time="All day"
+								startTime="All day"
+								endTime="All day"
 								color="blue"
 							/>
 						{:else}
 							<CalendarEvent
 								title="Plan"
-								time="Your week"
+								startTime="Your week"
+								endTime=""
 								color="violet"
 							/>
 						{/if}
