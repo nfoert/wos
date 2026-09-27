@@ -31,7 +31,7 @@ export async function GET({ url, cookies }) {
         });
 
         // 5. Send the authenticated user back to the visual app homepage 
-        throw redirect(303, '/');
+        throw redirect(303, '/home');
 
     } catch (err) {
         // If it's an intended SvelteKit redirect event, let it execution pass-through unaltered

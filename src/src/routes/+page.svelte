@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goToLogin } from "$lib/utils/calendar";
     import ConnectCalendar from "$lib/ConnectCalendar.svelte";
     import { onMount } from "svelte";
 
@@ -34,10 +35,10 @@
 	></div>
 
 	<Navbar
-	links={navLinks}
-	actionLabel="Sign in"
-	actionHref="/login"
-    />
+    links={navLinks}
+    actionLabel="Sign in"
+    onAction={goToLogin}
+	/>
 	<Hero calendarData={data} />
 	<CalendarPreview />
 	<Features />

@@ -4,6 +4,7 @@
 	import CommitmentCard from '$lib/index/CommitmentCard.svelte';
 	import GoalCard from '$lib/index/GoalCard.svelte';
 	import AvailabilityCard from '$lib/index/AvailabilityCard.svelte';
+	import { goToLogin } from "$lib/utils/calendar";
 
 	type Commitment = {
 		name: string;
@@ -67,7 +68,7 @@
 	<Navbar
 		links={navLinks}
 		actionLabel="Sign out"
-		actionHref="/logout"
+		onAction={goToLogin}
 	/>
 
 	<!-- Header -->
