@@ -235,7 +235,7 @@
 
     <!-- Continue -->
     <section
-        class="relative z-10 mx-auto flex max-w-5xl justify-end px-6 py-8 lg:px-10"
+        class="relative z-10 mx-auto flex max-w-5xl justify-end px-6 py-8 lg:px-10 mb-8"
     >
         <button
             type="button"
