@@ -10,6 +10,11 @@
 
     let { data } = $props();
 
+    const navLinks = [
+		{ label: 'Features', href: '#features' },
+		{ label: 'How it works', href: '#how' }
+	];
+
     onMount(() => {
         console.log(data);
     })
@@ -28,7 +33,11 @@
 		class="pointer-events-none absolute left-1/2 top-0 h-150 w-225 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[140px]"
 	></div>
 
-	<Navbar />
+	<Navbar
+	links={navLinks}
+	actionLabel="Sign in"
+	actionHref="/login"
+    />
 	<Hero calendarData={data} />
 	<CalendarPreview />
 	<Features />
