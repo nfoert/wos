@@ -1,3 +1,15 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+:root {
+	--theme-rgb: 124 58 237;
+}
+
+.theme-glow {
+	background: rgb(var(--theme-rgb) / 0.18);
+}
+
+.theme-glow-soft {
+	background: rgb(var(--theme-rgb) / 0.10);
+}
