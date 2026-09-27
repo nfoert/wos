@@ -7,6 +7,8 @@
     import GoalCard from '$lib/index/GoalCard.svelte';
     import TaskCard from '$lib/index/TaskCard.svelte';
     import { goToLogout } from '$lib/utils/calendar';
+    import { scheduleData } from '$lib/stores/main.js';
+    import { goto } from '$app/navigation';
 
     let { data } = $props();
 
@@ -75,17 +77,10 @@
         return res.json();
     }
 
-    let calendars = $state({
-        calendars: []
-    });
-
-    let selectedCalendar = $state('');
-
-    let events = $state({
-        events: []
-    });
-
-    $inspect(calendars, selectedCalendar, events);
+	let calendars = $state([]);
+	let selectedCalendar = $state()
+	let events = $state([]);
+	$inspect(calendars, selectedCalendar, events, events.events);
 
     onMount(async () => {
         calendars = await getCalendars();
@@ -108,6 +103,33 @@
     function removeTask(index: number) {
         tasks = tasks.filter((_, i) => i !== index);
     }
+
+	function parseEvents(events) {
+		// return list of events while keeping summary, description, start (format date to text), end (format date to text)
+		if (events.events.length > 0) {
+			return events.events.map((event) => {
+				return {
+					summary: event.summary,
+					description: event.description,
+					start: event.start.dateTime || event.start.date,
+					end: event.end.dateTime || event.end.date
+				}
+			})
+		} else {
+			return []
+		}
+	}
+
+	async function goToSchedule() {
+		scheduleData.set({
+			events: parseEvents(events) || [],
+			commitments,
+			goals,
+			tasks
+		});
+
+		await goto('/schedule');
+	}
 </script>
 
 <svelte:head>
@@ -262,7 +284,7 @@
         <button
             type="button"
             class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100"
-
+			onclick={goToSchedule}
         >
             Continue
 
