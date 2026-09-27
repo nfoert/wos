@@ -8,6 +8,7 @@
 	import CalendarPreview from '$lib/index/CalendarPreview.svelte';
 	import Features from '$lib/index/features.svelte';
 	import HowItWorks from '$lib/index/HowItWorks.svelte';
+    import { goto } from "$app/navigation";
 
     let { data } = $props();
 
@@ -15,6 +16,14 @@
 		{ label: 'Features', href: '#features' },
 		{ label: 'How it works', href: '#how' }
 	];
+
+	function handleConnectCalendar() {
+		if (data.calendarStatus.isConnected) {
+			goto("/home");
+		} else {
+			goToLogin();
+		}
+	}
 
     onMount(() => {
         console.log(data);
@@ -36,8 +45,8 @@
 
 	<Navbar
     links={navLinks}
-    actionLabel="Sign in"
-    onAction={goToLogin}
+    actionLabel={data.calendarStatus.isConnected ? "Continue" : "Sign in"}
+    onAction={handleConnectCalendar}
 	/>
 	<Hero calendarData={data} />
 	<CalendarPreview />
