@@ -34,21 +34,21 @@ export async function GET({ cookies, params }) {
 
         const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
-        // --- Calculate Current Week Range ---
+        // --- Calculate Two-Week Range (This Week & Next Week) ---
         const now = new Date();
         
         // Get the current day of the week (0 = Sunday, 1 = Monday, etc.)
         const currentDay = now.getDay(); 
         
-        // Calculate Monday of this week at 00:00:00
+        // Calculate Monday of THIS week at 00:00:00
         const startOfWeek = new Date(now);
         const distanceToMonday = currentDay === 0 ? -6 : 1 - currentDay; // Handle Sunday edge case
         startOfWeek.setDate(now.getDate() + distanceToMonday);
         startOfWeek.setHours(0, 0, 0, 0);
 
-        // Calculate Sunday night of this week at 23:59:59
+        // Calculate Sunday night of NEXT week at 23:59:59 (Current Monday + 13 days)
         const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        endOfWeek.setDate(startOfWeek.getDate() + 13); 
         endOfWeek.setHours(23, 59, 59, 999);
 
         // --- Fetch Filtered Events ---
