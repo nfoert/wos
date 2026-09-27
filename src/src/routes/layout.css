@@ -124,22 +124,4 @@ html {
 	animation: slide-new 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes slide-old {
-	from {
-		transform: translateX(0);
-	}
 
-	to {
-		transform: translateX(var(--page-old-end, -100vw));
-	}
-}
-
-@keyframes slide-new {
-	from {
-		transform: translateX(var(--page-new-start, 100vw));
-	}
-
-	to {
-		transform: translateX(0);
-	}
-}
