@@ -87,7 +87,7 @@
 				Build your
 
 				<span
-					class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent"
+					class="bg-linear-to-r from-violet-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent"
 				>
 					week.
 				</span>
