@@ -13,3 +13,16 @@
 .theme-glow-soft {
 	background: rgb(var(--theme-rgb) / 0.10);
 }
+
+.theme-text {
+	background: linear-gradient(
+		to right,
+		color-mix(in srgb, rgb(var(--theme-rgb)) 70%, white),
+		rgb(var(--theme-rgb)),
+		color-mix(in srgb, rgb(var(--theme-rgb)) 75%, white)
+	);
+
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
