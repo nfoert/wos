@@ -25,7 +25,7 @@
 			smarter weekly schedule.
 		</p>
 
-		<div class="mt-10 flex justify-center gap-4 items-center">
+		<div class="mt-10 flex justify-center gap-4 items-center mb-7">
 			<a
 				href="#start"
 				class="rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:bg-violet-100"
@@ -40,5 +40,11 @@
 				See how it works
 			</a>
 		</div>
+		<a
+			href="https://github.com/nfoert/wos"
+			class="rounded-full border border-white/10 bg-white/5 px-7 py-3.5 font-medium transition hover:bg-white/10"
+		>
+			Source Code
+		</a>
 	</div>
 </section>
