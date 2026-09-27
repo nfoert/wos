@@ -9,7 +9,8 @@
 	type Commitment = {
 		name: string;
 		day: string;
-		time: string;
+		startTime: string;
+		endTime: string;
 	};
 
 	type Goal = {

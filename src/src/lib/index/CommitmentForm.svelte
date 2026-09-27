@@ -2,7 +2,8 @@
 	type Commitment = {
 		name: string;
 		day: string;
-		time: string;
+		startTime: string;
+		endTime: string;
 	};
 
 	let {
@@ -15,7 +16,8 @@
 
 	let name = $state('');
 	let day = $state('Monday');
-	let time = $state('');
+	let startTime = $state('');
+	let endTime = $state('');
 
 	const days = [
 		'Monday',
@@ -28,16 +30,18 @@
 	];
 
 	function submit() {
-		if (!name.trim() || !time) return;
+		if (!name.trim() || !startTime || !endTime) return;
 
 		onAdd({
 			name: name.trim(),
 			day,
-			time
+			startTime,
+			endTime
 		});
 
 		name = '';
-		time = '';
+		startTime = '';
+		endTime = '';
 	}
 </script>
 
@@ -84,9 +88,16 @@
 			</label>
 
 			<input
-				id="commitment-time"
+				id="commitment-start-time"
 				type="time"
-				bind:value={time}
+				bind:value={startTime}
+				class="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-400/50"
+			/>
+
+			<input
+				id="commitment-end-time"
+				type="time"
+				bind:value={endTime}
 				class="mt-2 w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-400/50"
 			/>
 		</div>
