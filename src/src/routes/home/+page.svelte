@@ -262,7 +262,7 @@
     >
         <button
             type="button"
-            class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100"class="theme-shadow theme-light-hover group rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:-translate-y-0.5”
+            class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100"
 
         >
             Continue
