@@ -22,7 +22,7 @@
 		</div>
 
 		<span class="text-sm text-zinc-500">
-			{progress}%
+			{Math.round(progress)}%
 		</span>
 	</div>
 

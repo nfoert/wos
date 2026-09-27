@@ -48,8 +48,8 @@
     let tasks: Task[] = $state([]);
     let calendarEvents: CalendarEvent[] = $state([]);
 
-    let totalItems = $derived(commitments.length + goals.length);
-    let progress = $derived(Math.min(totalItems * 20, 100));
+    let totalItems = $derived(commitments.length + goals.length + tasks.length);
+    let progress = $derived(Math.min(totalItems * 33.33, 100));
 
     function addCommitment(commitment: Commitment) {
         commitments = [...commitments, commitment];
