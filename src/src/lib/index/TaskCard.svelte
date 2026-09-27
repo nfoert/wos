@@ -39,7 +39,7 @@
 <div class="rounded-3xl border border-white/10 bg-white/3 p-6">
     <div class="flex items-start justify-between">
         <div>
-            <p class="text-xs font-medium uppercase tracking-widest text-violet-400">
+            <p class="text-xs font-medium uppercase tracking-widest text-green-400">
                 03
             </p>
 

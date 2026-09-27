@@ -3,7 +3,6 @@
 	import ProgressCard from '$lib/index/ProgressCard.svelte';
 	import CommitmentCard from '$lib/index/CommitmentCard.svelte';
 	import GoalCard from '$lib/index/GoalCard.svelte';
-	import AvailabilityCard from '$lib/index/AvailabilityCard.svelte';
 	import TaskCard from '$lib/index/TaskCard.svelte';
 	import { goToLogin } from "$lib/utils/calendar";
 
@@ -141,7 +140,6 @@
 		</div>
 	</section>
 
-	<!-- Availability -->
 	<section class="relative z-10 mx-auto max-w-5xl px-6 pb-6 lg:px-10">
 		<TaskCard
 		{tasks}
@@ -149,7 +147,6 @@
 		onRemove={removeTask}
 		/>
 
-		<AvailabilityCard />
 	</section>
 
 	<!-- Continue -->
