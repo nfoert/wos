@@ -3,13 +3,14 @@
 	import ProgressCard from '$lib/index/ProgressCard.svelte';
 	import CommitmentCard from '$lib/index/CommitmentCard.svelte';
 	import GoalCard from '$lib/index/GoalCard.svelte';
-	import AvailabilityCard from '$lib/index/AvailabilityCard.svelte';
+	import TaskCard from '$lib/index/TaskCard.svelte';
 	import { goToLogin } from "$lib/utils/calendar";
 
 	type Commitment = {
 		name: string;
 		day: string;
-		time: string;
+		startTime: string;
+		endTime: string;
 	};
 
 	type Goal = {
@@ -17,6 +18,11 @@
 		hours: number;
 	};
 
+	type Task = {
+    name: string;
+    priority: 'Low' | 'Medium' | 'High';
+	dueDate: string;
+};
 	const navLinks = [
 		{ label: 'Home', href: '/home' },
 		{ label: 'Schedule', href: '/schedule' },
@@ -25,12 +31,20 @@
 
 	let commitments: Commitment[] = $state([]);
 	let goals: Goal[] = $state([]);
-
+	let tasks: Task[] = $state([]);
 	let totalItems = $derived(commitments.length + goals.length);
 	let progress = $derived(Math.min(totalItems * 20, 100));
 
 	function addCommitment(commitment: Commitment) {
 		commitments = [...commitments, commitment];
+	}
+
+	function addTask(task: Task) {
+    tasks = [...tasks, task];
+}
+
+	function removeTask(index: number) {
+		tasks = tasks.filter((_, i) => i !== index);
 	}
 
 	function removeCommitment(index: number) {
@@ -122,12 +136,17 @@
 				onAdd={addGoal}
 				onRemove={removeGoal}
 			/>
+
 		</div>
 	</section>
 
-	<!-- Availability -->
 	<section class="relative z-10 mx-auto max-w-5xl px-6 pb-6 lg:px-10">
-		<AvailabilityCard />
+		<TaskCard
+		{tasks}
+		onAdd={addTask}
+		onRemove={removeTask}
+		/>
+
 	</section>
 
 	<!-- Continue -->

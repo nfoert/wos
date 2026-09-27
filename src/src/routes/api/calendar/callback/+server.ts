@@ -35,7 +35,7 @@ export async function GET({ url, cookies }) {
 
     } catch (err) {
         // If it's an intended SvelteKit redirect event, let it execution pass-through unaltered
-        if (err.status === 303) throw err;
+        if (err instanceof Error && 'status' in err && err.status === 303) throw err;
 
         console.error('Google OAuth token trade operation failed:', err);
         throw error(500, 'Could not authenticate authorization code with Google services.');
