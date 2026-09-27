@@ -94,3 +94,19 @@
 		0 20px 25px -5px rgb(var(--theme-rgb) / 0.10),
 		0 8px 10px -6px rgb(var(--theme-rgb) / 0.08);
 }
+
+
+.theme-button-glow {
+	background-color: white;
+	box-shadow: 0 0 0 rgb(var(--theme-rgb) / 0);
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.25s ease;
+}
+
+.theme-button-glow:hover {
+	background-color: white;
+	box-shadow:
+		0 0 20px rgb(var(--theme-rgb) / 0.55),
+		0 0 45px rgb(var(--theme-rgb) / 0.30);
+}
