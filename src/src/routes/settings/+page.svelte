@@ -138,6 +138,7 @@
                 </p>
 
                 <h2 class="mt-2 text-2xl font-semibold">
+
                     Background color
                 </h2>
 
