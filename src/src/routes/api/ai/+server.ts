@@ -51,7 +51,7 @@ export async function POST({ request }) {
 
     if (mode === "ollama") {
         return await ollama.chat({
-            model: "qwen2.5:7b",
+            model: "qwen2.5:3b",
             messages: [
                 { role: "user", content: prompt }
             ]

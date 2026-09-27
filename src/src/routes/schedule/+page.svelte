@@ -13,8 +13,11 @@
 
     let generating: boolean = $state(false);
     let events = $state()
+    let showMyEvents = $state(false);
 
-    $inspect($scheduleData, events);
+    let totalEvents = $state();
+
+    $inspect(totalEvents);
 
     async function generate() {
         generating = true;
@@ -52,6 +55,27 @@
             generating = false;
         });
     }
+
+    function parseCalendarEvents(calendarEvents) {
+        return calendarEvents.map((event) => ({
+            title: event.summary,
+            start: event.start,
+            end: event.end,
+            description: event.description
+        }));
+    }
+
+    $effect(() => {
+        console.log("update")
+        console.log($scheduleData.events, events)
+        if (showMyEvents) {
+            totalEvents = [...parseCalendarEvents($scheduleData.events), ...events?.events || []];
+        } else if (events?.events.length > 0) {
+            totalEvents = events?.events;
+        } else {
+            totalEvents = [];
+        }
+    })
 </script>
 
 <div class="min-h-screen overflow-hidden bg-[#08090d] text-white">
@@ -94,18 +118,31 @@
                 disabled={generating}
             >   
                 {#if generating}
-                    Generating...
+                    Generating... <span class="animate-spin">⟳</span>
                 {:else}
-                    Generate Calendar
+                    Generate Calendar <span class="ml-2 transition group-hover:ml-3">→</span>
                 {/if}
-                <span class="ml-2 transition group-hover:ml-3">
-                    →
-                </span>
+                
             </button>
         </div>
 
-        {#if events?.events?.length > 0}
-            <Calendar data={events} />
-        {/if}
+        <div
+            class="div flex-col gap-2 rounded-3xl border border-white/10 bg-white/3 p-7 backdrop-blur transition hover:border-violet-400/20 w-1/2 mt-16"
+        >
+            <div class="flex flex-row gap-2 items-center ml-4">
+                <input type="checkbox" bind:checked={showMyEvents}>
+                <p>Show existing events</p>
+            </div>
+
+            <button
+                type="button"
+                class="group rounded-full bg-white px-7 py-3.5 font-semibold text-black shadow-xl shadow-violet-500/10 transition hover:-translate-y-0.5 hover:bg-violet-100 mt-4 ml-4 disabled:bg-slate-800/20 disabled:text-slate-400"
+                disabled={generating}
+            >   
+                Add to Google Calendar
+            </button>
+        </div>
+            
+        <Calendar data={totalEvents} />
     </div>
 </div>
