@@ -167,7 +167,7 @@
     </section>
 
 	<!-- Calendar selector -->
-	<section class="relative z-10 mx-auto max-w-5xl px-6 pt-10 lg:px-10">
+	<section class="relative z-10 mx-auto max-w-264 px-6 pt-10 lg:px-10">
 		<div class="flex flex-col gap-4 m-4 py-4 rounded-3xl border border-violet-400/20 bg-violet-400/10 px-4 text-sm text-violet-300">
 			{#if data.calendarStatus.isConnected}
 				<p>Calendar connected!</p>
@@ -177,7 +177,7 @@
 
 			<p class="font-bold">Select a calendar</p>
 
-			<select bind:value={selectedCalendar} class="mt-2 w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-400/50 w-1/2">
+			<select bind:value={selectedCalendar} class="mt-2 w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-400/50">
 				<option value="">Select a calendar</option>
 				{#each calendars.calendars as calendar}
 					<option value={calendar.id}>{calendar.summary}</option>
