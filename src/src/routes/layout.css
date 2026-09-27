@@ -136,3 +136,149 @@ html {
 		0 0 65px rgb(var(--theme-rgb) / 0.55),
 		0 0 110px rgb(var(--theme-rgb) / 0.35);
 }
+
+/* =========================
+   PAGE TRANSITIONS
+   ========================= */
+
+/*
+   Home -> Schedule -> Settings
+   slides toward the left.
+
+   Settings -> Schedule -> Home
+   slides toward the right.
+*/
+
+:root[data-nav-direction='forward']
+::view-transition-old(root) {
+	animation:
+		wos-page-out-left
+		280ms
+		cubic-bezier(0.22, 1, 0.36, 1)
+		both;
+}
+
+:root[data-nav-direction='forward']
+::view-transition-new(root) {
+	animation:
+		wos-page-in-right
+		280ms
+		cubic-bezier(0.22, 1, 0.36, 1)
+		both;
+}
+
+:root[data-nav-direction='backward']
+::view-transition-old(root) {
+	animation:
+		wos-page-out-right
+		280ms
+		cubic-bezier(0.22, 1, 0.36, 1)
+		both;
+}
+
+:root[data-nav-direction='backward']
+::view-transition-new(root) {
+	animation:
+		wos-page-in-left
+		280ms
+		cubic-bezier(0.22, 1, 0.36, 1)
+		both;
+}
+
+
+/* Forward: old page leaves left */
+
+@keyframes wos-page-out-left {
+	from {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	to {
+		transform: translateX(
+			calc(
+				var(
+					--page-slide-distance,
+					28px
+				) * -1
+			)
+		);
+
+		opacity: 0;
+	}
+}
+
+
+/* Forward: new page enters from right */
+
+@keyframes wos-page-in-right {
+	from {
+		transform: translateX(
+			var(
+				--page-slide-distance,
+				28px
+			)
+		);
+
+		opacity: 0;
+	}
+
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+
+/* Backward: old page leaves right */
+
+@keyframes wos-page-out-right {
+	from {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	to {
+		transform: translateX(
+			var(
+				--page-slide-distance,
+				28px
+			)
+		);
+
+		opacity: 0;
+	}
+}
+
+
+/* Backward: new page enters from left */
+
+@keyframes wos-page-in-left {
+	from {
+		transform: translateX(
+			calc(
+				var(
+					--page-slide-distance,
+					28px
+				) * -1
+			)
+		);
+
+		opacity: 0;
+	}
+
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+
+/* Respect reduced-motion settings */
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none !important;
+	}
+}
