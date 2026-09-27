@@ -1,3 +1,9 @@
+<script>
+    import { goToLogin } from "$lib/utils/calendar";
+
+	let { calendarData } = $props();
+
+</script>
 <section class="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-24 lg:px-10 lg:pt-32">
 	<div class="mx-auto max-w-4xl text-center">
 		<div
@@ -19,7 +25,7 @@
 			smarter weekly schedule.
 		</p>
 
-		<div class="mt-10 flex justify-center gap-4">
+		<div class="mt-10 flex justify-center gap-4 items-center">
 			<a
 				href="#start"
 				class="rounded-full bg-white px-7 py-3.5 font-semibold text-black transition hover:bg-violet-100"
@@ -33,6 +39,11 @@
 			>
 				See how it works
 			</a>
+			{#if !calendarData}
+				<button class="rounded-full border border-white/10 bg-white/5 px-7 py-3.5 font-medium transition hover:bg-white/10" onclick={goToLogin}>Connect Calendar</button>
+			{:else}
+				<p>Connected to calendar!</p>
+			{/if}
 		</div>
 	</div>
 </section>

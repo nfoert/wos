@@ -1,9 +1,18 @@
 <script lang="ts">
+    import ConnectCalendar from "$lib/ConnectCalendar.svelte";
+    import { onMount } from "svelte";
+
 	import Navbar from '$lib/index/Navbar.svelte';
 	import Hero from '$lib/index/Hero.svelte';
 	import CalendarPreview from '$lib/index/CalendarPreview.svelte';
 	import Features from '$lib/index/features.svelte';
 	import HowItWorks from '$lib/index/HowItWorks.svelte';
+
+    let { data } = $props();
+
+    onMount(() => {
+        console.log(data);
+    })
 </script>
 
 <svelte:head>
@@ -20,7 +29,7 @@
 	></div>
 
 	<Navbar />
-	<Hero />
+	<Hero calendarData={data} />
 	<CalendarPreview />
 	<Features />
 	<HowItWorks />
