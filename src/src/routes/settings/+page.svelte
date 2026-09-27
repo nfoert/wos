@@ -183,5 +183,9 @@
 						<p class="mt-1 text-sm text-emerald-400">
 							● Connected
 						</p>
-					{:else}
-					
+					{/if}
+				</div>
+			</div>
+		</section>
+	</main>
+</div>

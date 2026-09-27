@@ -1,5 +1,5 @@
-import { goToLogout } from '$lib/utils/calendar';
 <script lang="ts">
+    import { goToLogout } from '$lib/utils/calendar';
     import CalendarPreview from "$lib/index/CalendarPreview.svelte";
     import Navbar from "$lib/index/Navbar.svelte";
     import Calendar from "$lib/index/schedule/Calendar.svelte";
