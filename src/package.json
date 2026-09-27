@@ -26,6 +26,8 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
-		"googleapis": "^182.0.0"
+		"@google/genai": "^2.24.0",
+		"googleapis": "^182.0.0",
+		"ollama": "^0.6.3"
 	}
 }
