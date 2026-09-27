@@ -28,7 +28,84 @@
 		return page.url.pathname === href;
 	}
 
-	async function slideTo(event: MouseEvent, href: string) {
+	type ViewTransitionDocument = Document & {
+	startViewTransition?: (
+		callback: () => Promise<void> | void
+	) => {
+		finished: Promise<void>;
+	};
+};
+
+async function slideTo(event: MouseEvent, href: string) {
+	if (
+		event.ctrlKey ||
+		event.metaKey ||
+		event.shiftKey ||
+		event.altKey ||
+		event.button !== 0
+	) {
+		return;
+	}
+
+	event.preventDefault();
+
+	if (navigating) return;
+
+	const currentPath = page.url.pathname;
+
+	if (currentPath === href) return;
+
+	const currentIndex = pageOrder.indexOf(currentPath);
+	const targetIndex = pageOrder.indexOf(href);
+
+	if (currentIndex === -1 || targetIndex === -1) {
+		await goto(href);
+		return;
+	}
+
+	navigating = true;
+
+	const direction =
+		targetIndex > currentIndex
+			? 'forward'
+			: 'backward';
+
+	const steps = Math.max(
+		1,
+		Math.abs(targetIndex - currentIndex)
+	);
+
+	const root = document.documentElement;
+
+	root.dataset.navDirection = direction;
+
+	root.style.setProperty(
+		'--nav-slide-distance',
+		`${Math.min(10 + steps * 4, 18)}vw`
+	);
+
+	const doc = document as ViewTransitionDocument;
+
+	try {
+		if (doc.startViewTransition) {
+			const transition =
+				doc.startViewTransition(() => goto(href));
+
+			await transition.finished;
+		} else {
+			await goto(href);
+		}
+	} finally {
+		delete root.dataset.navDirection;
+
+		root.style.removeProperty(
+			'--nav-slide-distance'
+		);
+
+		navigating = false;
+	}
+}
+
 		// Keep Ctrl+click, middle click, etc. working normally
 		if (
 			event.ctrlKey ||
