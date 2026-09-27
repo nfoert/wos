@@ -6,7 +6,7 @@
     import CommitmentCard from '$lib/index/CommitmentCard.svelte';
     import GoalCard from '$lib/index/GoalCard.svelte';
     import TaskCard from '$lib/index/TaskCard.svelte';
-    import { goToLogin } from '$lib/utils/calendar';
+	import { goToLogout } from '$lib/utils/calendar';
 
 	let { data } = $props();
 
@@ -125,10 +125,10 @@
 
     <!-- Navbar -->
     <Navbar
-        links={navLinks}
-        actionLabel="Sign out"
-        onAction={goToLogin}
-    />
+		links={navLinks}
+		actionLabel="Sign out"
+		onAction={goToLogout}
+/>
 
     <!-- Header -->
     <section

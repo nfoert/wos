@@ -1,5 +1,9 @@
 function goToLogin() {
-    window.location.href = "/api/calendar/login";
+    window.location.href = '/api/calendar/login';
 }
 
-export { goToLogin };
+function goToLogout() {
+    window.location.href = '/api/calendar/logout';
+}
+
+export { goToLogin, goToLogout };
