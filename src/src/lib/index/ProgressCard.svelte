@@ -28,8 +28,9 @@
 
 	<div class="mt-5 h-2 overflow-hidden rounded-full bg-white/5">
 		<div
-			class="h-full rounded-full bg-linear-to-r from-violet-500 to-fuchsia-400 transition-all duration-500"
-			style={`width: ${progress}%`}
-		></div>
+	class="theme-progress h-full rounded-full transition-all duration-500"
+	style={`width: ${progress}%`}
+></div>
+
 	</div>
 </div>

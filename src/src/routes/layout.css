@@ -1,3 +1,96 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+:root {
+	--theme-rgb: 124 58 237;
+}
+
+.theme-glow {
+	background: rgb(var(--theme-rgb) / 0.18);
+}
+
+.theme-glow-soft {
+	background: rgb(var(--theme-rgb) / 0.10);
+}
+
+.theme-text {
+	background: linear-gradient(
+		to right,
+		color-mix(in srgb, rgb(var(--theme-rgb)) 70%, white),
+		rgb(var(--theme-rgb)),
+		color-mix(in srgb, rgb(var(--theme-rgb)) 75%, white)
+	);
+
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.theme-text {
+	background: linear-gradient(
+		to right,
+		rgb(var(--theme-rgb) / 0.75),
+		rgb(var(--theme-rgb)),
+		rgb(var(--theme-rgb) / 0.7)
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.theme-accent {
+	color: rgb(var(--theme-rgb));
+}
+
+.theme-dot {
+	background-color: rgb(var(--theme-rgb));
+}
+
+.theme-soft {
+	background-color: rgb(var(--theme-rgb) / 0.10);
+}
+
+.theme-panel {
+	border-color: rgb(var(--theme-rgb) / 0.20);
+	background-color: rgb(var(--theme-rgb) / 0.10);
+	color: rgb(var(--theme-rgb));
+}
+
+.theme-progress {
+	background: linear-gradient(
+		to right,
+		rgb(var(--theme-rgb)),
+		rgb(var(--theme-rgb) / 0.60)
+	);
+}
+
+.theme-focus:focus {
+	border-color: rgb(var(--theme-rgb) / 0.50);
+	box-shadow: 0 0 0 2px rgb(var(--theme-rgb) / 0.10);
+}
+
+.theme-hover:hover {
+	border-color: rgb(var(--theme-rgb) / 0.30);
+	background-color: rgb(var(--theme-rgb) / 0.05);
+	color: rgb(var(--theme-rgb));
+}
+
+.theme-light-hover:hover {
+	background-color: color-mix(
+		in srgb,
+		rgb(var(--theme-rgb)) 14%,
+		white
+	);
+}
+
+.theme-solid {
+	background-color: rgb(var(--theme-rgb));
+	color: white;
+}
+
+.theme-shadow {
+	box-shadow:
+		0 20px 25px -5px rgb(var(--theme-rgb) / 0.10),
+		0 8px 10px -6px rgb(var(--theme-rgb) / 0.08);
+}
