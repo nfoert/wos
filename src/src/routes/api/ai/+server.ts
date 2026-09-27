@@ -44,7 +44,8 @@ export async function POST({ request }) {
         ...
     }
 
-    ONLY return the JSON object, nothing else. Your response must be valid JSON. Don't include any markdown indicating this text should be formatted as JSON.
+    ONLY return the JSON object, nothing else. Your response must be valid JSON. Don't include any markdown indicating this text should be formatted as JSON. 
+    Don't use newlines (\n), and keep your response in one message.
     This returned JSON data represents events that are to be added to the user's calendar, based on their commitments, goals, and tasks.
     `
 

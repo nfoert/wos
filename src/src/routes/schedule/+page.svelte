@@ -4,8 +4,6 @@
     import Calendar from "$lib/index/schedule/Calendar.svelte";
     import { scheduleData } from "$lib/stores/main";
 
-    $inspect($scheduleData);
-
     const navLinks = [
         { label: 'Home', href: '/home' },
         { label: 'Schedule', href: '/schedule' },
@@ -14,6 +12,8 @@
 
     let generating: boolean = $state(false);
     let events = $state()
+
+    $inspect($scheduleData, events);
 
     async function generate() {
         generating = true;
@@ -26,8 +26,28 @@
             }),
             method: 'POST'
         }).then(async (response) => {
-            events = JSON.parse(await response.json());
-            console.log(events);
+            const data = await response.json();
+            
+            // 1. Direct match: If data itself contains the events array directly
+            if (data && Array.isArray(data.events)) {
+                events = data;
+            } 
+            // 2. Wrapped match: If your backend sent it wrapped inside a 'result' key
+            else if (data && data.text) {
+                const parsedResult = typeof data.text === 'string' ? JSON.parse(data.text) : data.text;
+                events = parsedResult || [];
+            } 
+            // 3. Fallback double-serialized string check
+            else {
+                const fallback = typeof data === 'string' ? JSON.parse(data) : data;
+                events = fallback || [];
+            }
+
+            console.log("Successfully extracted events array:", events);
+            generating = false;
+
+        }).catch((error) => {
+            console.error(error);
             generating = false;
         });
     }
