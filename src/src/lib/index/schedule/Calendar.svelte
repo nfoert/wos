@@ -92,6 +92,9 @@
 		const dayStart = startOfDay(day);
 		const dayEnd = addDays(dayStart, 1);
 
+		if (!events) {
+			return [];
+		}
 		return events
 			.filter((event) => {
 				const start = parseDate(event.start);
@@ -177,7 +180,7 @@
 			<div class="grid grid-cols-7 divide-x divide-white/5">
 				{#each DAYS as dayName, dayIndex}
 					{@const day = addDays(week.start, dayIndex)}
-					{@const events = getEventsForDay(data.events, day)}
+					{@const events = getEventsForDay(data, day)}
 
 					<div
 						class="min-h-70 p-3 sm:min-h-90 sm:p-4"
