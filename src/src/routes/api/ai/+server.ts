@@ -3,7 +3,7 @@ import { env } from '$env/dynamic/private';
 import { json } from "@sveltejs/kit";
 import ollama from 'ollama';
 
-const mode: "ollama" | "gemini" = "ollama";
+const mode: "ollama" | "gemini" = "gemini";
 
 export async function POST({ request }) {
     const body = await request.json();
@@ -67,7 +67,7 @@ export async function POST({ request }) {
         try {
             // 2. Await the direct interactions.create promise cleanly without nesting a .then()
             const response = await ai.interactions.create({
-                model: "gemini-3.6-flash", // Using the updated model standard
+                model: "gemini-3.7-flash", // Using the updated model standard
                 input: prompt,
             });
     
