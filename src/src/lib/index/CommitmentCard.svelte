@@ -4,7 +4,8 @@
 	export type Commitment = {
 		name: string;
 		day: string;
-		time: string;
+		startTime: string;
+		endTime: string;
 	};
 
 	let {
@@ -60,7 +61,7 @@
 							</p>
 
 							<p class="mt-1 text-xs text-zinc-500">
-								{commitment.day} · {commitment.time}
+								{commitment.day} · {commitment.startTime}-{commitment.endTime}
 							</p>
 						</div>
 					</div>
