@@ -6,6 +6,18 @@
 	--theme-rgb: 124 58 237;
 }
 
+html,
+body {
+	background: #08090d;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+
+/* Background glow */
+
 .theme-glow {
 	background: rgb(var(--theme-rgb) / 0.18);
 }
@@ -13,6 +25,9 @@
 .theme-glow-soft {
 	background: rgb(var(--theme-rgb) / 0.10);
 }
+
+
+/* Theme-colored text */
 
 .theme-text {
 	background: linear-gradient(
@@ -27,17 +42,8 @@
 	color: transparent;
 }
 
-.theme-text {
-	background: linear-gradient(
-		to right,
-		rgb(var(--theme-rgb) / 0.75),
-		rgb(var(--theme-rgb)),
-		rgb(var(--theme-rgb) / 0.7)
-	);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
-}
+
+/* General theme accents */
 
 .theme-accent {
 	color: rgb(var(--theme-rgb));
@@ -57,6 +63,9 @@
 	color: rgb(var(--theme-rgb));
 }
 
+
+/* Progress bar */
+
 .theme-progress {
 	background: linear-gradient(
 		to right,
@@ -65,10 +74,16 @@
 	);
 }
 
+
+/* Input focus */
+
 .theme-focus:focus {
 	border-color: rgb(var(--theme-rgb) / 0.50);
 	box-shadow: 0 0 0 2px rgb(var(--theme-rgb) / 0.10);
 }
+
+
+/* Hover effects */
 
 .theme-hover:hover {
 	border-color: rgb(var(--theme-rgb) / 0.30);
@@ -84,10 +99,16 @@
 	);
 }
 
+
+/* Solid theme color */
+
 .theme-solid {
 	background-color: rgb(var(--theme-rgb));
 	color: white;
 }
+
+
+/* Theme shadow */
 
 .theme-shadow {
 	box-shadow:
@@ -96,9 +117,12 @@
 }
 
 
+/* White button with theme-colored glow */
+
 .theme-button-glow {
 	background-color: white;
 	box-shadow: 0 0 0 rgb(var(--theme-rgb) / 0);
+
 	transition:
 		transform 0.2s ease,
 		box-shadow 0.25s ease;
@@ -106,110 +130,9 @@
 
 .theme-button-glow:hover {
 	background-color: white;
+
 	box-shadow:
 		0 0 28px rgb(var(--theme-rgb) / 0.75),
 		0 0 65px rgb(var(--theme-rgb) / 0.55),
 		0 0 110px rgb(var(--theme-rgb) / 0.35);
 }
-
-html {
-	scroll-behavior: smooth;
-}
-
-html,
-body {
-	background: #08090d;
-}
-
-::view-transition-group(root) {
-	animation-duration: 320ms;
-	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-	animation-duration: 320ms;
-	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-html[data-nav-direction='forward']::view-transition-old(root) {
-	animation-name: nav-out-left;
-}
-
-html[data-nav-direction='forward']::view-transition-new(root) {
-	animation-name: nav-in-right;
-}
-
-html[data-nav-direction='backward']::view-transition-old(root) {
-	animation-name: nav-out-right;
-}
-
-html[data-nav-direction='backward']::view-transition-new(root) {
-	animation-name: nav-in-left;
-}
-
-@keyframes nav-out-left {
-	from {
-		transform: translateX(0);
-		opacity: 1;
-	}
-
-	to {
-		transform: translateX(
-			calc(var(--nav-slide-distance, 14vw) * -1)
-		);
-		opacity: 0.35;
-	}
-}
-
-@keyframes nav-in-right {
-	from {
-		transform: translateX(
-			var(--nav-slide-distance, 14vw)
-		);
-		opacity: 0.35;
-	}
-
-	to {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-
-@keyframes nav-out-right {
-	from {
-		transform: translateX(0);
-		opacity: 1;
-	}
-
-	to {
-		transform: translateX(
-			var(--nav-slide-distance, 14vw)
-		);
-		opacity: 0.35;
-	}
-}
-
-@keyframes nav-in-left {
-	from {
-		transform: translateX(
-			calc(var(--nav-slide-distance, 14vw) * -1)
-		);
-		opacity: 0.35;
-	}
-
-	to {
-		transform: translateX(0);
-		opacity: 1;
-	}
-}
-
-@media (prefers-reduced-motion: reduce) {
-	::view-transition-old(root),
-	::view-transition-new(root) {
-		animation: none;
-	}
-}
-
-
-
