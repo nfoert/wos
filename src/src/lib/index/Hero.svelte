@@ -14,9 +14,9 @@
 		</div>
 
 		<h1 class="text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-8xl">
-			Make time for
+			Make time for what
 			<span class="bg-linear-to-r from-violet-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">
-				what matters.
+				 matters most.
 			</span>
 		</h1>
 
