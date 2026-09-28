@@ -82,21 +82,6 @@
 		);
 
 		return new Promise<void>((resolve) => {
-			const transition =
-				doc.startViewTransition!(async () => {
-					/*
-						Allow SvelteKit to perform the navigation
-						after the old page snapshot is captured.
-					*/
-					resolve();
-
-					/*
-						Wait for the new route to finish rendering
-						before the browser captures the new page.
-					*/
-					await navigation.complete;
-				});
-
 			const cleanUp = () => {
 				delete document.documentElement.dataset
 					.navDirection;
@@ -106,10 +91,25 @@
 				);
 			};
 
-			transition.finished.then(
-				cleanUp,
-				cleanUp
-			);
+			try {
+				const transition =
+					doc.startViewTransition!(async () => {
+						resolve();
+						await navigation.complete;
+					});
+
+				transition.finished.then(
+					cleanUp,
+					cleanUp
+				);
+			} catch (error) {
+				cleanUp();
+				console.error(
+					'Unable to start the page transition; continuing navigation.',
+					error
+				);
+				resolve();
+			}
 		});
 	});
 

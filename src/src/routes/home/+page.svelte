@@ -73,7 +73,7 @@
     }
 
     async function getCalendarEvents(id: string) {
-        const res = await fetch('/api/calendar/events/' + id);
+        const res = await fetch('/api/calendar/events/' + encodeURIComponent(id));
         return res.json();
     }
 
