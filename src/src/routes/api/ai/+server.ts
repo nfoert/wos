@@ -149,19 +149,52 @@ Return only the JSON object.
                     env.GEMINI_API_KEY
             });
 
-        const response =
-            await ai.models.generateContent({
-                model:
-                    'gemini-3.8-flash',
+        let response;
 
-                contents:
-                    prompt,
+for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+        response = await ai.models.generateContent({
+            model: 'gemini-3.8-flash',
+            contents: prompt,
+            config: {
+                responseMimeType: 'application/json'
+            }
+        });
 
-                config: {
-                    responseMimeType:
-                        'application/json'
-                }
-            });
+        break;
+    } catch (error) {
+        const message =
+            error instanceof Error
+                ? error.message
+                : String(error);
+
+        const temporaryError =
+            message.includes('503') ||
+            message.includes('UNAVAILABLE') ||
+            message.includes('high demand');
+
+        if (!temporaryError || attempt === 3) {
+            throw error;
+        }
+
+        const delay = 1000 * Math.pow(2, attempt);
+
+        console.log(
+            `Gemini busy. Retrying in ${delay / 1000}s...`
+        );
+
+        await new Promise((resolve) =>
+            setTimeout(resolve, delay)
+        );
+    }
+}
+
+if (!response) {
+    throw new Error(
+        'Gemini is temporarily unavailable.'
+    );
+}
+
 
         const text =
             response.text;
