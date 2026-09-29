@@ -154,7 +154,7 @@ Return only the JSON object.
 for (let attempt = 0; attempt < 4; attempt++) {
     try {
         response = await ai.models.generateContent({
-            model: 'gemini-3.8-flash',
+            model: 'gemini-3.7-flash',
             contents: prompt,
             config: {
                 responseMimeType: 'application/json'
