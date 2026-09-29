@@ -114,17 +114,27 @@
 	});
 
 	onMount(() => {
-		const savedTheme =
-			localStorage.getItem('wos-theme-rgb');
+    const defaultTheme = '124 58 237';
 
-		if (savedTheme) {
-			document.documentElement.style.setProperty(
-				'--theme-rgb',
-				savedTheme
-			);
-		}
+    const savedTheme =
+        localStorage.getItem('wos-theme-rgb');
 
-		let typed = '';
+    const theme =
+        savedTheme || defaultTheme;
+
+    document.documentElement.style.setProperty(
+        '--theme-rgb',
+        theme
+    );
+
+    if (!savedTheme) {
+        localStorage.setItem(
+            'wos-theme-rgb',
+            defaultTheme
+        );
+    }
+
+    let typed = '';
 
 		function handleKeydown(event: KeyboardEvent) {
 			if (
@@ -186,7 +196,7 @@
 
 {#if easterEgg}
 	<div
-		class="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
+		class="pointer-events-none fixed inset-0 z-9999 flex items-center justify-center bg-black/70"
 	>
 		<div class="text-center">
 			<div

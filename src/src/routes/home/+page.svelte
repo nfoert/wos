@@ -77,10 +77,44 @@
         return res.json();
     }
 
-	let calendars = $state([]);
-	let selectedCalendar = $state()
-	let events = $state([]);
-	$inspect(calendars, selectedCalendar, events, events.events);
+	type CalendarInfo = {
+    id: string;
+    summary: string;
+};
+
+type GoogleCalendarEvent = {
+    summary?: string;
+    description?: string;
+    start: {
+        dateTime?: string;
+        date?: string;
+    };
+    end: {
+        dateTime?: string;
+        date?: string;
+    };
+};
+
+type CalendarListResponse = {
+    calendars: CalendarInfo[];
+};
+
+type CalendarEventsResponse = {
+    events: GoogleCalendarEvent[];
+    weekStart?: string;
+    weekEnd?: string;
+};
+
+let calendars = $state<CalendarListResponse>({
+    calendars: []
+});
+
+let selectedCalendar = $state<string>('');
+
+let events = $state<CalendarEventsResponse>({
+    events: []
+});
+
 
     onMount(async () => {
         calendars = await getCalendars();
@@ -90,11 +124,21 @@
         }
     });
 
-    $effect(async () => {
-        if (selectedCalendar) {
-            events = await getCalendarEvents(selectedCalendar);
+    $effect(() => {
+    const calendarId = selectedCalendar;
+
+    if (!calendarId) {
+        events = { events: [] };
+        return;
+    }
+
+    void getCalendarEvents(calendarId).then((result) => {
+        if (selectedCalendar === calendarId) {
+            events = result;
         }
     });
+});
+
 
     function addTask(task: Task) {
         tasks = [...tasks, task];
@@ -104,21 +148,27 @@
         tasks = tasks.filter((_, i) => i !== index);
     }
 
-	function parseEvents(events) {
-		// return list of events while keeping summary, description, start (format date to text), end (format date to text)
-		if (events.events.length > 0) {
-			return events.events.map((event) => {
-				return {
-					summary: event.summary,
-					description: event.description,
-					start: event.start.dateTime || event.start.date,
-					end: event.end.dateTime || event.end.date
-				}
-			})
-		} else {
-			return []
-		}
-	}
+	function parseEvents(
+    calendarData: CalendarEventsResponse
+) {
+    if (calendarData.events.length === 0) {
+        return [];
+    }
+
+    return calendarData.events.map((event) => ({
+        summary: event.summary ?? 'Untitled event',
+        description: event.description ?? '',
+        start:
+            event.start.dateTime ??
+            event.start.date ??
+            '',
+        end:
+            event.end.dateTime ??
+            event.end.date ??
+            ''
+    }));
+}
+
 
 	async function goToSchedule() {
 		scheduleData.set({
@@ -211,10 +261,14 @@
             class="theme-panel flex w-full flex-col gap-4 rounded-3xl border px-4 py-4 text-sm"
         >
             {#if data.calendarStatus.isConnected}
-                <p>Calendar connected!</p>
-            {:else}
-                <p>Calendar not connected.</p>
-            {/if}
+    <p class="flex items-center gap-2">
+        <span>Calendar connected!</span>
+        <span class="text-lg font-bold text-emerald-400">✓</span>
+    </p>
+{:else}
+    <p>Calendar not connected.</p>
+{/if}
+
 
             <p class="font-bold">Select a calendar</p>
 

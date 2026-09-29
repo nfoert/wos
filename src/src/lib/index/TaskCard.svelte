@@ -101,13 +101,22 @@
                 />
 
                 <select
-                    bind:value={priority}
-                    class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-300 outline-none focus:border-violet-500/50"
-                >
-                    <option value="Low">Low priority</option>
-                    <option value="Medium">Medium priority</option>
-                    <option value="High">High priority</option>
-                </select>
+    bind:value={priority}
+    class="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm font-medium text-white outline-none focus:border-violet-500/50"
+>
+    <option class="bg-zinc-900 text-white" value="Low">
+        Low priority
+    </option>
+
+    <option class="bg-zinc-900 text-white" value="Medium">
+        Medium priority
+    </option>
+
+    <option class="bg-zinc-900 text-white" value="High">
+        High priority
+    </option>
+</select>
+
 
                 <input
                     type="date"

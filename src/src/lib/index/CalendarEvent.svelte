@@ -20,7 +20,9 @@
 	};
 </script>
 
-<div class={`rounded-xl p-3 text-xs ${colors[color]}`}>
-	<div class="font-semibold">{title}</div>
+<div class={`min-w-0 overflow-hidden rounded-xl p-3 text-xs ${colors[color]}`}>
+	<div class="wrap-break-words font-semibold leading-snug">
+	{title}
+</div>
 	<div class="mt-1 opacity-60">{startTime} - {endTime}</div>
 </div>

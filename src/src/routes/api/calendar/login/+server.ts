@@ -9,12 +9,25 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 export function GET() {
-    const scopes = ['https://www.googleapis.com/auth/calendar'];
+    const scopes = [
+        'https://www.googleapis.com/auth/calendar'
+    ];
 
-    const url = oauth2Client.generateAuthUrl({
-        access_type: 'offline', // Essential to get a refresh token
-        scope: scopes,
-    });
+    const url =
+        oauth2Client.generateAuthUrl({
+            access_type: 'offline',
+
+            /*
+                Forces Google to give us proper consent
+                and a refresh token.
+
+                The refresh token is what lets W.O.S.
+                stay connected between sessions.
+            */
+            prompt: 'consent',
+
+            scope: scopes
+        });
 
     throw redirect(302, url);
 }

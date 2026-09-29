@@ -3,42 +3,112 @@ import { env } from '$env/dynamic/private';
 import { json } from '@sveltejs/kit';
 
 export async function POST({ request }) {
-	const body = await request.json();
+    const body = await request.json();
 
-	const {
-		events,
-		commitments,
-		goals,
-		tasks
-	} = body;
+    const {
+        events,
+        commitments,
+        goals,
+        tasks,
+        rangeMode,
+        rangeStart,
+        rangeEnd
+    } = body;
 
-	if (!env.GEMINI_API_KEY) {
-		return json(
-			{ error: 'GEMINI_API_KEY is missing from .env' },
-			{ status: 500 }
-		);
-	}
+    if (!env.GEMINI_API_KEY) {
+        return json(
+            {
+                error:
+                    'GEMINI_API_KEY is missing from .env'
+            },
+            {
+                status: 500
+            }
+        );
+    }
 
-	const prompt = `
-You are assisting the user in organizing their calendar.
+    if (!rangeStart || !rangeEnd) {
+        return json(
+            {
+                error:
+                    'Scheduling date range was not provided.'
+            },
+            {
+                status: 400
+            }
+        );
+    }
 
-You will receive information about events they already have this week,
-along with their commitments, goals, and tasks.
+    const prompt = `
+You are the scheduling engine for W.O.S., the Week Optimization System.
 
-Your job is to create new calendar events that intelligently fit into
-their existing schedule.
+Your job is to create an optimized calendar based on the user's existing calendar events, commitments, weekly goals, and tasks.
 
-Rules:
+PLANNING WINDOW:
 
-- Never overlap existing events.
-- Commitments must happen at their specified date and time.
-- Goals may be split into multiple sessions.
-- Tasks should be scheduled once.
-- Avoid scheduling things during the middle of the night.
-- Use reasonable start and end times.
-- Do not change existing calendar events.
+Start date: ${rangeStart}
+End date: ${rangeEnd}
+Mode: ${rangeMode}
 
-Existing events:
+You MUST schedule every newly created event inside this planning window.
+
+Never create an event before ${rangeStart}.
+Never create an event after ${rangeEnd}.
+
+IMPORTANT SCHEDULING RULES:
+
+- Never overlap an existing calendar event.
+
+- Existing calendar events are fixed and may never be moved.
+
+- Commitments are fixed events.
+
+- A commitment contains a weekday and start/end time.
+
+- Commitments should occur on the matching weekday inside the selected planning window.
+
+- If the user selected BOTH weeks, commitments should repeat in both weeks.
+
+- Goals contain a number of hours PER WEEK.
+
+- Goals may be divided into multiple reasonable sessions.
+
+- If BOTH weeks are selected, the requested goal hours apply separately to each week.
+
+Example:
+A goal of 6 hours per week across two weeks means approximately 6 hours should be scheduled during week one and another 6 hours during week two.
+
+- Tasks should normally be scheduled once.
+
+- Never schedule a task after its due date.
+
+- Task priority MUST meaningfully affect scheduling.
+
+- High-priority tasks should be given useful and convenient time slots before lower-priority tasks whenever possible.
+
+- High-priority tasks should preferably be completed earlier rather than being pushed to leftover time.
+
+- Medium-priority tasks should be scheduled after high-priority work has been accommodated.
+
+- Low-priority tasks should fill remaining reasonable availability.
+
+- If two tasks compete for the same useful time period, favor the higher-priority task.
+
+- Never move or ignore a fixed commitment merely to fit a task.
+
+- Do not schedule activities in the middle of the night.
+
+- Prefer reasonable waking hours.
+
+- Avoid unnecessarily fragmented schedules.
+
+- Avoid placing several demanding activities directly back-to-back when reasonable alternatives exist.
+
+- Respect all due dates.
+
+- Use the entire selected planning window intelligently.
+
+Existing calendar events:
 ${JSON.stringify(events)}
 
 Commitments:
@@ -53,71 +123,105 @@ ${JSON.stringify(tasks)}
 Return ONLY valid JSON in exactly this format:
 
 {
-	"events": [
-		{
-			"title": "Event Title",
-			"start": "YYYY-MM-DD HH:mm",
-			"end": "YYYY-MM-DD HH:mm",
-			"description": "Event Description"
-		}
-	]
+    "events": [
+        {
+            "title": "Event Title",
+            "start": "YYYY-MM-DD HH:mm",
+            "end": "YYYY-MM-DD HH:mm",
+            "description": "Event Description"
+        }
+    ]
 }
+
+Every start and end date MUST fall between ${rangeStart} and ${rangeEnd}.
 
 Do not include markdown.
 Do not include backticks.
 Do not explain your answer.
-Only return the JSON object.
+Do not write text before or after the JSON.
+Return only the JSON object.
 `;
 
-	try {
-		const ai = new GoogleGenAI({
-			apiKey: env.GEMINI_API_KEY
-		});
+    try {
+        const ai =
+            new GoogleGenAI({
+                apiKey:
+                    env.GEMINI_API_KEY
+            });
 
-		const response = await ai.models.generateContent({
-			model: 'gemini-3.8-flash',
-			contents: prompt,
-			config: {
-				responseMimeType: 'application/json'
-			}
-		});
+        const response =
+            await ai.models.generateContent({
+                model:
+                    'gemini-3.8-flash',
 
-		const text = response.text;
+                contents:
+                    prompt,
 
-		console.log('Gemini response:', text);
+                config: {
+                    responseMimeType:
+                        'application/json'
+                }
+            });
 
-		if (!text) {
-			throw new Error('Gemini returned an empty response');
-		}
+        const text =
+            response.text;
 
-		/*
-			The Schedule page currently expects response.json()
-			to give it a STRING, which it then passes to JSON.parse().
-			So we intentionally return the Gemini text as a JSON string.
-		*/
-		return json(text);
-	} catch (error) {
-		console.error('Gemini API error');
+        console.log(
+            'Gemini response:',
+            text
+        );
 
-		if (error instanceof Error) {
-			console.error('Message:', error.message);
-			console.error(error);
+        if (!text) {
+            throw new Error(
+                'Gemini returned an empty response'
+            );
+        }
 
-			return json(
-				{
-					error: error.message
-				},
-				{ status: 500 }
-			);
-		}
+        /*
+            Keep returning the text because the frontend
+            now safely handles either a JSON string or object.
+        */
+        return json(text);
 
-		console.error(error);
+    } catch (error) {
 
-		return json(
-			{
-				error: 'Unknown Gemini API error'
-			},
-			{ status: 500 }
-		);
-	}
+        console.error(
+            'Gemini API error'
+        );
+
+        if (
+            error instanceof Error
+        ) {
+            console.error(
+                'Message:',
+                error.message
+            );
+
+            console.error(
+                error
+            );
+
+            return json(
+                {
+                    error:
+                        error.message
+                },
+                {
+                    status: 500
+                }
+            );
+        }
+
+        console.error(error);
+
+        return json(
+            {
+                error:
+                    'Unknown Gemini API error'
+            },
+            {
+                status: 500
+            }
+        );
+    }
 }
